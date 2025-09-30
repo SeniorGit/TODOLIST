@@ -16,6 +16,7 @@ export default function Task() {
     fetchTasks();
   }, []);
 
+  // request to get all requst from api 
   const fetchTasks = async () => {
     try {
       const response = await fetch("http://localhost:3000/tasks"); 
@@ -23,13 +24,13 @@ export default function Task() {
         throw new Error('Network response was not ok');
       }
       const data: Task[] = await response.json();
-      console.log("Data dari backend:", data);
       setTasks(data);
     } catch (err) {
       console.error("Error:", err);
     }
   };
 
+// add new task
   const addTask = async (title: string) => {
     try {
       const response = await fetch("http://localhost:3000/tasks", {
@@ -47,6 +48,7 @@ export default function Task() {
     }
   };
 
+// update task 
   const updateTask = async (id: number, updates: Partial<Task>) => {
     try {
       const response = await fetch(`http://localhost:3000/tasks/${id}`, {
@@ -63,7 +65,8 @@ export default function Task() {
       console.error("Error updating task:", err);
     }
   };
-
+  
+// delete task
   const deleteTask = async (id: number) => {
     try {
       const response = await fetch(`http://localhost:3000/tasks/${id}`, {

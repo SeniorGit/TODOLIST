@@ -1,5 +1,7 @@
+// import database configuration
 const pool = require("../db"); 
 
+// show all to do list 
 exports.getAllTask = async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM task ORDER BY id");
@@ -10,6 +12,7 @@ exports.getAllTask = async (req, res) => {
   }
 };
 
+// creating to do list
 exports.createTask = async (req, res) => {
   const { title } = req.body;
   try {
@@ -24,13 +27,14 @@ exports.createTask = async (req, res) => {
   }
 };
 
+// Update to do list
 exports.updateTask = async (req, res) => {
   const id = parseInt(req.params.id);
   const { title, is_completed } = req.body;
 
   try {
     const result = await pool.query(
-      "UPDATE task SET title = $1, is_completed = $2 WHERE id = $3 RETURNING *",
+      "UPDATE task SET title = COALESCE($1, title), is_completed = COALESCE($2, is_completed) WHERE id = $3 RETURNING *",
       [title, is_completed, id]
     );
 
@@ -44,6 +48,7 @@ exports.updateTask = async (req, res) => {
   }
 };
 
+// delete task 
 exports.deleteTask = async (req, res) => {
   const id = parseInt(req.params.id);
 
