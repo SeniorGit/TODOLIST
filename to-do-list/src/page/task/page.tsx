@@ -96,43 +96,46 @@ export default function Task() {
           </Button>
         </div>
         
-        <div className="bg-white rounded-lg shadow">
-          <ul className="divide-y divide-gray-200">
-            {tasks.map((task) => (
-              <li key={task.id} className="p-4 flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <input
-                    type="checkbox"
-                    checked={task.is_completed}
-                    onChange={(e) => updateTask(task.id, { is_completed: e.target.checked })}
-                    className="h-5 w-5 text-blue-600"
-                  />
-                  <span className={task.is_completed ? "line-through text-gray-500" : "text-gray-900"}>
-                    {task.title}
-                  </span>
+        <div className="bg-white rounded-lg shadow p-[20px] gap-2">
+          <div className=" gap-2">
+            <div className="divide-y divide-amber-700">
+              {tasks.map((task) => (
+                <div key={task.id} className="p-4 flex items-center justify-between bg-amber-500 m-2 rounded-[10px]">
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="checkbox"
+                      checked={task.is_completed}
+                      onChange={(e) => updateTask(task.id, { is_completed: e.target.checked })}
+                      className="h-5 w-5 text-blue-600"
+                    />
+                    <span className={task.is_completed ? "line-through text-gray-500" : "text-gray-900"}>
+                      {task.title}
+                    </span>
+                  </div>
+                  <div className="flex space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        const newTitle = prompt("Edit task:", task.title);
+                        if (newTitle) updateTask(task.id, { title: newTitle });
+                      }}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => deleteTask(task.id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
                 </div>
-                <div className="flex space-x-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      const newTitle = prompt("Edit task:", task.title);
-                      if (newTitle) updateTask(task.id, { title: newTitle });
-                    }}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    onClick={() => deleteTask(task.id)}
-                  >
-                    Delete
-                  </Button>
-                </div>
-              </li>
-            ))}
-          </ul>
+              ))}
+            </div>
+
+          </div>
           
           {tasks.length === 0 && (
             <div className="p-8 text-center text-gray-500">
