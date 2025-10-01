@@ -19,7 +19,7 @@ export function FormTask({
     task, 
     onAddTask, 
     onUpdateTask 
-    }: FormTaskProps) {
+}: FormTaskProps) {
 
     const [formData, setFormData] = useState({
         title: "",
@@ -77,10 +77,9 @@ export function FormTask({
         });
     }
     }, [task]);
-    //loading 
+    
     const [isLoading, setIsLoading] = useState(false);
     
-    // saving previose input 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>{
         const {name, value} = e.target;
         setFormData(prev => ({
@@ -126,11 +125,12 @@ export function FormTask({
             setIsLoading(false);
         }
     };
+    
     return (
-        <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid gap-4">
-                <div className="grid gap-3">
-                    <Label htmlFor="title">Task Title</Label>
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+            <div className="grid gap-3 sm:gap-4">
+                <div className="grid gap-2 sm:gap-3">
+                    <Label htmlFor="title" className="text-sm sm:text-base">Task Title</Label>
                     <Input 
                         id="title" 
                         name="title" 
@@ -138,57 +138,66 @@ export function FormTask({
                         onChange={handleChange}
                         required
                         placeholder="Input task title"
+                        className="text-sm sm:text-base"
                     />
                 </div>
-                <div className="grid gap-3">
-                    <Label htmlFor="note">note</Label>
+                <div className="grid gap-2 sm:gap-3">
+                    <Label htmlFor="note" className="text-sm sm:text-base">Note</Label>
                     <Textarea
                         id="note" 
                         name="note" 
                         value={formData.note}
                         onChange={handleChange}
+                        className="text-sm sm:text-base min-h-[80px] sm:min-h-[100px]"
+                        placeholder="Add your notes here..."
                     />
                 </div>
-                <div className="grid gap-3">
-                    <Label htmlFor="category">category</Label>
+                <div className="grid gap-2 sm:gap-3">
+                    <Label htmlFor="category" className="text-sm sm:text-base">Category</Label>
                     <Input 
                         id="category" 
                         name="category" 
                         value={formData.category}
                         onChange={handleChange}
+                        className="text-sm sm:text-base"
+                        placeholder="e.g., Work, Personal"
                     />
                 </div>
-                <div className="grid gap-3">
-                    <Label htmlFor="priority">priority</Label>
+                <div className="grid gap-2 sm:gap-3">
+                    <Label htmlFor="priority" className="text-sm sm:text-base">Priority</Label>
                     <Input 
                         id="priority" 
                         name="priority" 
                         value={formData.priority}
                         onChange={handleChange}
+                        className="text-sm sm:text-base"
+                        placeholder="high, medium, low"
                     />
                 </div>
-                <div className="grid gap-3">
-                    <Label htmlFor="due_date">due_date</Label>
+                <div className="grid gap-2 sm:gap-3">
+                    <Label htmlFor="due_date" className="text-sm sm:text-base">Due Date</Label>
                     <Input 
                         type="date"
                         id="due_date" 
                         name="due_date" 
                         value={formData.due_date}
                         onChange={handleChange} 
+                        className="text-sm sm:text-base"
                     />
                 </div>
-                <div className="grid gap-3">
-                    <Label htmlFor="reminder">reminder</Label>
+                <div className="grid gap-2 sm:gap-3">
+                    <Label htmlFor="reminder" className="text-sm sm:text-base">Reminder</Label>
                     <Input 
                         type="datetime-local"
                         id="reminder" 
                         name="reminder" 
                         value={formData.reminder}
                         onChange={handleChange}
+                        className="text-sm sm:text-base"
                     />
                 </div>
             </div>
-            <Button type="submit" disabled={isLoading} className="w-full">
+            <Button type="submit" disabled={isLoading} className="w-full text-sm sm:text-base">
                 {isLoading ? "Saving..." : (task?.id ? "Update Task" : "Add Task")}
             </Button>
         </form>

@@ -19,15 +19,15 @@ export default function Task() {
   const TaskSkeleton = () => (
     <div className="space-y-3">
       {[1, 2, 3].map((i) => (
-        <div key={i} className="p-4 flex items-center justify-between bg-white border border-gray-200 rounded-lg animate-pulse">
-          <div className="flex items-center space-x-4 flex-1">
+        <div key={i} className="p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between bg-white border border-gray-200 rounded-lg animate-pulse gap-3">
+          <div className="flex items-center space-x-3 sm:space-x-4 w-full sm:flex-1">
             <div className="h-5 w-5 bg-gray-200 rounded"></div>
-            <div className="flex-1 space-y-2">
+            <div className="flex-1 space-y-2 w-full">
               <div className="h-4 bg-gray-200 rounded w-3/4"></div>
               <div className="h-3 bg-gray-200 rounded w-1/2"></div>
             </div>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 w-full sm:w-auto justify-end">
             <div className="h-8 w-16 bg-gray-200 rounded"></div>
             <div className="h-8 w-16 bg-gray-200 rounded"></div>
           </div>
@@ -37,17 +37,20 @@ export default function Task() {
   );
 
   return (
-    <div className="bg-primary-background w-full p-4 min-h-screen">
-      <div className="max-w-2xl mx-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold text-gray-800">My Todo List</h1>
+    <div className="bg-primary-background w-full p-3 sm:p-4 min-h-screen">
+      {/* ✅ RESPONSIVE CONTAINER */}
+      <div className="max-w-full sm:max-w-2xl mx-auto">
+        
+        {/* ✅ RESPONSIVE HEADER */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 mb-4 sm:mb-6">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-0">My Todo List</h1>
           <Dialog>
             <DialogTrigger asChild>
-              <Button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold">
+              <Button className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold">
                 + Add New Task
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="w-[95vw] sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle>Add New Task</DialogTitle>
                 <DialogDescription>
@@ -62,13 +65,14 @@ export default function Task() {
           </Dialog>
         </div>
         
-        <div className="bg-white rounded-lg shadow-lg p-6">
+        {/* ✅ RESPONSIVE CONTENT CARD */}
+        <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6">
           {/* Error */}
           {error && (
-            <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <div className="mb-4 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-lg">
               <div className="flex items-center">
                 <span className="text-red-500 mr-2">⚠️</span>
-                <span className="text-red-700">{error}</span>
+                <span className="text-red-700 text-sm sm:text-base">{error}</span>
               </div>
             </div>
           )}
@@ -77,16 +81,16 @@ export default function Task() {
           {loading && tasks.length === 0 ? (
             <div>
               <div className="flex items-center justify-center mb-4">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
-                <span className="ml-2 text-gray-600">Loading your tasks...</span>
+                <div className="animate-spin rounded-full h-5 w-5 sm:h-6 sm:w-6 border-b-2 border-blue-500"></div>
+                <span className="ml-2 text-gray-600 text-sm sm:text-base">Loading your tasks...</span>
               </div>
               <TaskSkeleton />
             </div>
           ) : (
             <>
-              {/* Task Complate & On Going Counter */}
+              {/* Task Complete & On Going Counter */}
               {tasks.length > 0 && (
-                <div className="mb-4 text-sm text-gray-500">
+                <div className="mb-3 sm:mb-4 text-xs sm:text-sm text-gray-500">
                   {tasks.filter(t => t.is_completed).length} of {tasks.length} tasks completed
                 </div>
               )}
@@ -102,17 +106,17 @@ export default function Task() {
               
               {/* No Task */}
               {tasks.length === 0 && !loading && (
-                <div className="text-center py-12">
-                  <div className="text-6xl mb-4">📭</div>
-                  <h3 className="text-lg font-semibold text-gray-700 mb-2">No tasks yet</h3>
-                  <p className="text-gray-500 mb-4">Get started by creating your first task!</p>
+                <div className="text-center py-8 sm:py-12">
+                  <div className="text-4xl sm:text-6xl mb-3 sm:mb-4">📭</div>
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-2">No tasks yet</h3>
+                  <p className="text-gray-500 text-sm sm:text-base mb-3 sm:mb-4">Get started by creating your first task!</p>
                   <Dialog>
                     <DialogTrigger asChild>
-                      <Button className="bg-blue-500 hover:bg-blue-600">
+                      <Button className="bg-blue-500 hover:bg-blue-600 w-full sm:w-auto">
                         Create Your First Task
                       </Button>
                     </DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className="w-[95vw] sm:max-w-[425px]">
                       <DialogHeader>
                         <DialogTitle>Add Your First Task</DialogTitle>
                         <DialogDescription>
