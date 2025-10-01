@@ -22,13 +22,14 @@ exports.createTask = async (req, res) => {
     due_date,
     reminder
   } = req.body;
-
+  const processedDueDate = due_date === '' ? null : due_date;
+  const processedReminder = reminder === '' ? null : reminder;
   try {
     const result = await pool.query(
       `INSERT INTO task 
       (title, is_completed, category, priority, note, due_date, reminder) 
       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-      [title, false, category, priority, note || null, due_date || null, reminder || null]
+      [title, false, category, priority, note || null, processedDueDate || null, processedReminder || null]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
@@ -49,7 +50,8 @@ exports.updateTask = async (req, res) => {
     due_date,
     reminder
   } = req.body;
-
+  const processedDueDate = due_date === '' ? null : due_date;
+  const processedReminder = reminder === '' ? null : reminder;
   try {
     const result = await pool.query(
       `UPDATE task SET 
@@ -61,7 +63,7 @@ exports.updateTask = async (req, res) => {
         due_date = COALESCE($6, due_date),
         reminder = COALESCE($7, reminder)
        WHERE id = $8 RETURNING *`,
-      [title, is_completed, category, priority, note, due_date, reminder, id]
+      [title, is_completed, category, priority, note, processedDueDate, processedReminder, id]
     );
 
     if (result.rows.length === 0) {
