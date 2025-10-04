@@ -43,7 +43,9 @@ export default function Task() {
         
         {/* ✅ RESPONSIVE HEADER */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 mb-4 sm:mb-6">
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-0">My Todo List</h1>
+          <h1 className="text-2xl font-bold text-gray-800 mb-3 sm:mb-0">
+            My Todo List
+          </h1>
           <Dialog>
             <DialogTrigger asChild>
               <Button className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold">
